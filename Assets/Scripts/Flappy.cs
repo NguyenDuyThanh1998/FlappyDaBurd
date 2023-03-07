@@ -4,8 +4,12 @@ using UnityEngine;
 
 namespace FlappyDaBurd.Core
 {
-    public class Flappy : MonoBehaviour
+    public class Flappy : Singleton<Flappy>
     {
 
+        public void PlayDeadAnimation()
+        {
+
+        }
     }
 }

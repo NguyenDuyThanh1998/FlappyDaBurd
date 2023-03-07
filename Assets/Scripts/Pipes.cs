@@ -4,12 +4,8 @@ using UnityEngine;
 
 namespace FlappyDaBurd.Core
 {
-    public class GameManager : Singleton<GameManager>
+    public class Pipes : Obstacle
     {
 
-        public void FlashScreenOnDead()
-        {
-
-        }
     }
 }
