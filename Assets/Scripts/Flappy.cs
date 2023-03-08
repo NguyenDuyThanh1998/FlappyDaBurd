@@ -6,6 +6,10 @@ namespace FlappyDaBurd.Core
 {
     public class Flappy : Singleton<Flappy>
     {
+        public void Fly()
+        {
+
+        }
 
         public void PlayDeadAnimation()
         {

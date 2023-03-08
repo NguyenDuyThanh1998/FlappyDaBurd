@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Background
+  - Ground
+  - Spawnables
+  - Flappy
   layers:
   - Default
   - TransparentFX
@@ -11,9 +15,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Ground
+  - Spawnables
+  - Flappy
   - 
   - 
   - 
@@ -40,4 +44,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Flappy
+    uniqueID: 4072911581
+    locked: 0
+  - name: Spawnables
+    uniqueID: 4244179421
+    locked: 0
+  - name: Ground
+    uniqueID: 3232025915
     locked: 0

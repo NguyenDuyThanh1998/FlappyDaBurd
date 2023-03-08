@@ -6,6 +6,6 @@ namespace FlappyDaBurd.Core
 {
     public class Map : Singleton<Map>
     {
-
+        //reset spawnables here
     }
 }
