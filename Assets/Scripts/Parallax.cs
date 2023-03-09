@@ -13,10 +13,10 @@ public class Parallax : MonoBehaviour
 
     [SerializeField] bool m_HasChild = false;
     [SerializeField] bool m_Loop = true;
-    MeshRenderer[] m_Renderers;
-    [SerializeField] Vector3 m_StartPosition;
+    [SerializeField] Renderer[] m_Renderers;
     [SerializeField] float m_Width;
     //[SerializeField] float m_Height; // For future innovations.
+    [SerializeField] float m_HalfCameraWidth;
 
     // public
     public Transform Transform => m_Transform;
@@ -27,58 +27,78 @@ public class Parallax : MonoBehaviour
     private void Awake()
     {
         Initialize();
-        if (m_Transform.childCount > 0)
-        {
-            m_HasChild = true;
-            m_Renderers = GetComponentsInChildren<MeshRenderer>();
-            GetSize();
-        }
     }
 
     void Initialize()
     {
+        SetDefaultValues();
+        GetSumSize();
+        GetCameraHalfWidth();
+    }
+
+    void SetDefaultValues()
+    {
         m_Transform = transform;
-        m_Position = m_Transform.position;
+
         m_Width = 0;
         //m_Height = 0;
 
-        //
         m_HasChild = false;
         //m_Loop = true;
     }
 
+    void GetSumSize()
+    {
+        if (m_Transform.childCount > 0)
+        {
+            m_HasChild = true;
+            m_Renderers = GetComponentsInChildren<Renderer>();
+            GetSize();
+        }
+        else
+        {
+            m_Renderers = GetComponents<Renderer>();
+            GetSize();
+        }
+    }
+
     void GetSize()
     {
-        foreach (MeshRenderer renderer in m_Renderers)
+        foreach (var renderer in m_Renderers)
         {
             m_Width += renderer.bounds.size.x;
             //m_Height += renderer.bounds.size.y;
         }
     }
 
+    void GetCameraHalfWidth()
+    {
+        var MainCam = Camera.main;
+        m_HalfCameraWidth = MainCam.orthographicSize * MainCam.aspect; // MainCam.orthographicSize is camera height * aspect ratio to get width.
+    }
+
     private void OnEnable()
     {
-        m_StartPosition = m_Position;
+        m_Position = m_Transform.position;
     }
 
     private void Update()
     {
-        CheckLooping();
         m_Transform.position = GetPosition();
     }
 
     Vector3 GetPosition()
     {
-        var distance = m_ParallaxIndex * Time.deltaTime;
-        m_Position.x -= distance;
-        return m_Position;
-    }
-
-    void CheckLooping()
-    {
-        if (m_Loop /*&& m_HasChild*/)
+        var travelLimit = (m_Width / 2 - m_HalfCameraWidth) + m_Position.x;
+        if (travelLimit > 0)
         {
-            //var limit = (m_Width - m_StartPosition.x)
+            var distance = m_ParallaxIndex * Time.deltaTime;
+            m_Position.x -= distance;
         }
+        else if (travelLimit <= 0 && m_Loop == false)
+        {
+            m_Position.x += m_Width - m_HalfCameraWidth * 2;
+        }
+        return m_Position;
     }
 }
