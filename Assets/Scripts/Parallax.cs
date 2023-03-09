@@ -11,8 +11,6 @@ public class Parallax : MonoBehaviour
     //[SerializeField] Vector3 m_EulerAngles; // For future expansions.
     [SerializeField] float m_ParallaxIndex;
 
-    [SerializeField] bool m_HasChild = false;
-    [SerializeField] bool m_Loop = true;
     [SerializeField] Renderer[] m_Renderers;
     [SerializeField] float m_Width;
     //[SerializeField] float m_Height; // For future innovations.
@@ -42,16 +40,12 @@ public class Parallax : MonoBehaviour
 
         m_Width = 0;
         //m_Height = 0;
-
-        m_HasChild = false;
-        //m_Loop = true;
     }
 
     void GetSumSize()
     {
         if (m_Transform.childCount > 0)
         {
-            m_HasChild = true;
             m_Renderers = GetComponentsInChildren<Renderer>();
             GetSize();
         }
@@ -89,15 +83,19 @@ public class Parallax : MonoBehaviour
 
     Vector3 GetPosition()
     {
+        //var lastSpriteSize = m_Renderers[^1].bounds.size;
         var travelLimit = (m_Width / 2 - m_HalfCameraWidth) + m_Position.x;
         if (travelLimit > 0)
         {
             var distance = m_ParallaxIndex * Time.deltaTime;
             m_Position.x -= distance;
         }
-        else if (travelLimit <= 0 && m_Loop == false)
+        else
         {
-            m_Position.x += m_Width - m_HalfCameraWidth * 2;
+            //m_Position.x += m_Width - m_HalfCameraWidth * 2;
+
+            m_Position.x += m_Width - (m_Width / m_Renderers.Length);
+            //m_Position.x += m_Width * (1 - ( 1 / m_Renderers.Length));
         }
         return m_Position;
     }

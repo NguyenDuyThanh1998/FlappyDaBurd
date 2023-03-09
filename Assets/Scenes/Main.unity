@@ -404,9 +404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Transform: {fileID: 0}
   m_Position: {x: 0, y: 0, z: 0}
-  m_ParallaxIndex: 0.2
-  m_HasChild: 1
-  m_Loop: 1
+  m_ParallaxIndex: 0.6
   m_Renderers: []
   m_Width: 0
   m_HalfCameraWidth: 0
@@ -843,9 +841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Transform: {fileID: 0}
   m_Position: {x: 0, y: 0, z: 0}
-  m_ParallaxIndex: 2
-  m_HasChild: 1
-  m_Loop: 1
+  m_ParallaxIndex: 5
   m_Renderers: []
   m_Width: 0
   m_HalfCameraWidth: 0
