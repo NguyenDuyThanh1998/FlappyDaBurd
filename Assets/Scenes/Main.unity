@@ -247,7 +247,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 241769713}
-  - component: {fileID: 241769714}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -272,23 +271,6 @@ Transform:
   m_Father: {fileID: 537281567}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &241769714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 241769712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b3e8dbd72e2bdd4a8607ef19b016ef7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Background: {fileID: 441470085}
-  m_Ground: {fileID: 1409426962}
-  m_BackgroundPosition: {x: 0, y: 0, z: 0}
-  m_GroundPosition: {x: 0, y: 0, z: 0}
-  m_ParallaxIndex: 0
 --- !u!1 &379922657
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +364,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 441470085}
+  - component: {fileID: 441470086}
   m_Layer: 0
   m_Name: Backgrounds
   m_TagString: Untagged
@@ -407,6 +390,25 @@ Transform:
   m_Father: {fileID: 241769713}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &441470086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441470084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3e8dbd72e2bdd4a8607ef19b016ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Transform: {fileID: 0}
+  m_Position: {x: 0, y: 0, z: 0}
+  m_ParallaxIndex: 0.2
+  m_HasChild: 1
+  m_Loop: 1
+  m_StartPosition: {x: 0, y: 0, z: 0}
+  m_Width: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +802,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1409426962}
+  - component: {fileID: 1409426963}
   m_Layer: 0
   m_Name: Grounds
   m_TagString: Untagged
@@ -825,6 +828,25 @@ Transform:
   m_Father: {fileID: 241769713}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1409426963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409426961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3e8dbd72e2bdd4a8607ef19b016ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Transform: {fileID: 0}
+  m_Position: {x: 0, y: 0, z: 0}
+  m_ParallaxIndex: 2
+  m_HasChild: 1
+  m_Loop: 1
+  m_StartPosition: {x: 0, y: 0, z: 0}
+  m_Width: 0
 --- !u!1 &1596443615
 GameObject:
   m_ObjectHideFlags: 0
