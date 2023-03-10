@@ -31,6 +31,7 @@ public class Parallax : MonoBehaviour
     {
         SetDefaultValues();
         GetSumSize();
+        SetCenter();
         GetCameraHalfWidth();
     }
 
@@ -47,19 +48,19 @@ public class Parallax : MonoBehaviour
         if (m_Transform.childCount > 0)
         {
             m_Renderers = GetComponentsInChildren<Renderer>();
-            GetSize();
         }
         else
         {
             m_Renderers = GetComponents<Renderer>();
-            GetSize();
         }
+        GetSize();
     }
 
     void GetSize()
     {
         foreach (var renderer in m_Renderers)
         {
+            //Debug.Log(renderer.bounds.size);
             m_Width += renderer.bounds.size.x;
             //m_Height += renderer.bounds.size.y;
         }
@@ -84,7 +85,7 @@ public class Parallax : MonoBehaviour
     Vector3 GetPosition()
     {
         //var lastSpriteSize = m_Renderers[^1].bounds.size;
-        var travelLimit = (m_Width / 2 - m_HalfCameraWidth) + m_Position.x;
+        var travelLimit = (m_Width / 2f - m_HalfCameraWidth) + m_Position.x;
         if (travelLimit > 0)
         {
             var distance = m_ParallaxIndex * Time.deltaTime;
@@ -92,11 +93,18 @@ public class Parallax : MonoBehaviour
         }
         else
         {
-            //m_Position.x += m_Width - m_HalfCameraWidth * 2;
+            //m_Position.x += m_Width - m_HalfCameraWidth * 2; // Left edge of last sprite match left edge camera bound.
 
-            m_Position.x += m_Width - (m_Width / m_Renderers.Length);
-            //m_Position.x += m_Width * (1 - ( 1 / m_Renderers.Length));
+            m_Position.x += m_Width * (1f - ( 1f / m_Renderers.Length)); // Right edge of last sprite match right edge camera bound.
         }
         return m_Position;
     }
+
+    #region Context Menu
+    [ContextMenu("Init")]
+    void SetCenter()
+    {
+        // Set center to match pivot. Or alternatively write a dif script to rearrange child position.
+    }
+    #endregion
 }
