@@ -14,7 +14,7 @@ namespace FlappyDaBurd.Core
         #region Game States
         public void StartGame()
         {
-            
+            //Flappy.Instance.SetPhysics(true);
         }
 
         public void GameOver()
@@ -31,7 +31,12 @@ namespace FlappyDaBurd.Core
 
         public void Pause()
         {
+            Time.timeScale = 0;
+        }
 
+        public void Resume()
+        {
+            Time.timeScale = 1;
         }
         #endregion
 

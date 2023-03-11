@@ -16,10 +16,10 @@ public class Parallax : MonoBehaviour
     //[SerializeField] float m_Height; // For future innovations.
     [SerializeField] float m_HalfCameraWidth;
 
-    // public
+    /*// public
     public Transform Transform => m_Transform;
     public Vector3 Position => m_Position;
-    public float ParallaxIndex => m_ParallaxIndex;
+    public float ParallaxIndex => m_ParallaxIndex;*/
     #endregion
 
     private void Awake()
@@ -27,6 +27,7 @@ public class Parallax : MonoBehaviour
         Initialize();
     }
 
+    [ContextMenu("Set Center")]
     void Initialize()
     {
         SetDefaultValues();
@@ -66,6 +67,12 @@ public class Parallax : MonoBehaviour
         }
     }
 
+    [ContextMenu("Set Center")]
+    void SetCenter()
+    {
+        // Set center to match pivot. Or alternatively write a dif script to rearrange child position.
+    }
+
     void GetCameraHalfWidth()
     {
         var MainCam = Camera.main;
@@ -99,12 +106,4 @@ public class Parallax : MonoBehaviour
         }
         return m_Position;
     }
-
-    #region Context Menu
-    [ContextMenu("Init")]
-    void SetCenter()
-    {
-        // Set center to match pivot. Or alternatively write a dif script to rearrange child position.
-    }
-    #endregion
 }
