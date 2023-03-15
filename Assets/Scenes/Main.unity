@@ -627,22 +627,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flappy
       objectReference: {fileID: 0}
-    - target: {fileID: 6193243768198994952, guid: 5239d0ce5e9f50340b64fb55ae309dd7, type: 3}
-      propertyPath: m_FallAngle
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6193243768198994952, guid: 5239d0ce5e9f50340b64fb55ae309dd7, type: 3}
-      propertyPath: m_FlapAngle
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6193243768198994952, guid: 5239d0ce5e9f50340b64fb55ae309dd7, type: 3}
-      propertyPath: m_RigidBody
-      value: 
-      objectReference: {fileID: 692292315}
-    - target: {fileID: 7962145571805485503, guid: 5239d0ce5e9f50340b64fb55ae309dd7, type: 3}
-      propertyPath: m_Constraints
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9031671457651417804, guid: 5239d0ce5e9f50340b64fb55ae309dd7, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -692,11 +676,6 @@ PrefabInstance:
 --- !u!4 &692292312 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9031671457651417804, guid: 5239d0ce5e9f50340b64fb55ae309dd7, type: 3}
-  m_PrefabInstance: {fileID: 692292311}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &692292315 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 7962145571805485503, guid: 5239d0ce5e9f50340b64fb55ae309dd7, type: 3}
   m_PrefabInstance: {fileID: 692292311}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &842202709
@@ -754,7 +733,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000422121}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 15, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

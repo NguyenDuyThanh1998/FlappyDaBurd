@@ -126,5 +126,11 @@ namespace FlappyDaBurd.Core
         {
 
         }
+
+        //
+        public void Collect(Collectable _collectable)
+        {
+
+        }
     }
 }

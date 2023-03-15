@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace FlappyDaBurd.Core
 {
-    public class Pipes : Obstacle
+    public class DataManager : Singleton<DataManager>
     {
-        
+
     }
 }

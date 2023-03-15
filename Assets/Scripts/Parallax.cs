@@ -27,7 +27,7 @@ public class Parallax : MonoBehaviour
         Initialize();
     }
 
-    [ContextMenu("Set Center")]
+    [ContextMenu("Initialize")]
     void Initialize()
     {
         SetDefaultValues();
