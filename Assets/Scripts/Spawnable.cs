@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FlappyDaBurd.Core
 {
-    public class Spawnable : MonoBehaviour
+    public abstract class Spawnable : MonoBehaviour
     {
         Transform m_Transform;
         Vector3 m_Position;
