@@ -12,6 +12,8 @@ namespace FlappyDaBurd.Core
                     return typeof(ECollectableType);
                 case ESpawnableType.Obstacle:
                     return typeof(EObstacleTpye);
+                case ESpawnableType.None:
+                    return null;
                 default:
                     return null;
             }
@@ -25,6 +27,8 @@ namespace FlappyDaBurd.Core
                     return typeof(ECurrencyType);
                 case ECollectableType.Powerup:
                     return typeof(EPowerupType);
+                case ECollectableType.None:
+                    return null;
                 default:
                     return null;
             }

@@ -9,6 +9,7 @@ namespace FlappyDaBurd.Core
         private void Awake()
         {
             ShowStartGameUI();
+            LoadAudioSettings();
         }
 
         #region Game States
@@ -46,7 +47,6 @@ namespace FlappyDaBurd.Core
 
         }
 
-        //
         void FlashScreenOnDead()
         {
 
@@ -57,7 +57,15 @@ namespace FlappyDaBurd.Core
 
         }
 
-        //
+        public AudioSettings LoadAudioSettings()
+        {
+            return null;
+        }
+
+        public AudioSettings SaveAudioSettings(AudioSettings audio)
+        {
+            return null;
+        }
         #endregion
     }
 }

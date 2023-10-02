@@ -87,5 +87,4 @@ namespace FlappyDaBurd.Core
         }
         #endregion
     }
-    //Free candy!
 }

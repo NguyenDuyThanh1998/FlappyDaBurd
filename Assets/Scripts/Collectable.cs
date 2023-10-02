@@ -6,8 +6,8 @@ namespace FlappyDaBurd.Core
 {
     public class Collectable : Spawnable
     {
-        /*[SerializeField]
-        SoundID m_CollectSound = SoundID.None;*/
+        [SerializeField]
+        ESoundID m_CollectSound = ESoundID.Collect;
         const string k_FlappyTag = "Flappy";
         Renderer[] m_Renderers;
 
@@ -30,7 +30,7 @@ namespace FlappyDaBurd.Core
         {
             if (col.CompareTag(k_FlappyTag))
             {
-                //AudioManager.Instance.PlayEffect(m_CollectSound);
+                AudioManager.Instance.PlayEffect(m_CollectSound);
                 Flappy.Instance.Collect(this);
             }
         }
