@@ -6,11 +6,17 @@ namespace FlappyDaBurd.Core
 {
     public abstract class Spawnable : MonoBehaviour
     {
-        Transform m_Transform;
-        Vector3 m_Position;
-        Vector3 m_Scale;
-        Vector3 m_EulerAngles;
+        // local
+        protected Transform m_Transform;
+        protected Vector3 m_Position;
+        protected Vector3 m_Scale;
+        protected Vector3 m_EulerAngles;
 
+        //protected Vector2 m_CameraPosition;
+        //protected float m_HalfScreenWidth;
+        //protected float m_HalfScreenHeight;
+
+        // public
         public Vector3 Scale => m_Scale;
         public Vector3 Position => m_Position;
         public Vector3 EulerAngles => m_EulerAngles;
@@ -28,6 +34,13 @@ namespace FlappyDaBurd.Core
         protected virtual void OnEnable()
         {
             SetDefaults();
+            SetSpawnPoint();
+        }
+
+        protected virtual void FixedUpdate()
+        {
+            Movement();
+            //PerFixedUpdate();
         }
         
         void SetDefaults()
@@ -38,9 +51,31 @@ namespace FlappyDaBurd.Core
             m_EulerAngles = m_Transform.eulerAngles;
         }
 
-        public virtual void ResetSpawnable()
+        #region Abstract
+        protected abstract Vector3 SetSpawnPoint();
+
+        protected abstract void Movement();
+
+        protected abstract void OnHit();
+
+        protected abstract void ResetSpawnable();
+        #endregion
+
+        #region Methods
+        protected Vector2 CameraPosition()
         {
-            // Override this for each type of Spawnable.
+            return Camera.main.transform.position;
         }
+
+        protected float HalfScreenWidth()
+        {
+            return HalfScreenHeight() * Camera.main.aspect;
+        }
+
+        protected float HalfScreenHeight()
+        {
+            return Camera.main.orthographicSize;
+        }
+        #endregion
     }
 }

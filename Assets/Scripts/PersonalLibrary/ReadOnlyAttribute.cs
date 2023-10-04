@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PersonalLibrary.Editor
+namespace FlappyDaBurd.Core
 {
     public class ReadOnlyAttribute : PropertyAttribute
     {

@@ -1,3 +1,4 @@
+using FlappyDaBurd.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,17 +13,19 @@ public class Parallax : MonoBehaviour
     [SerializeField] float m_ParallaxIndex;
 
     [SerializeField] Renderer[] m_Renderers;
-    [SerializeField] float m_Width;
-    //[SerializeField] float m_Height; // For future innovations.
-    [SerializeField] float m_HalfCameraWidth;
+    [SerializeField] [ReadOnly] float m_Width;
+    [SerializeField] [ReadOnly] float m_HalfCameraWidth;
+    //[SerializeField] [ReadOnly] float m_Height; // For future innovations.
+    //[SerializeField] [ReadOnly] float m_HalfCameraHeight;
 
-    /*// public
+
+    // public
     public Transform Transform => m_Transform;
     public Vector3 Position => m_Position;
-    public float ParallaxIndex => m_ParallaxIndex;*/
+    public float ParallaxIndex => m_ParallaxIndex;
     #endregion
 
-    private void Awake()
+    void Awake()
     {
         Initialize();
     }
@@ -76,15 +79,15 @@ public class Parallax : MonoBehaviour
     void GetCameraHalfWidth()
     {
         var MainCam = Camera.main;
-        m_HalfCameraWidth = MainCam.orthographicSize * MainCam.aspect; // MainCam.orthographicSize is camera height * aspect ratio to get width.
+        m_HalfCameraWidth = MainCam.orthographicSize * MainCam.aspect; // MainCam.orthographicSize is half the size of camera height * aspect ratio to get width.
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         m_Position = m_Transform.position;
     }
 
-    private void Update()
+    void FixedUpdate()
     {
         m_Transform.position = GetPosition();
     }

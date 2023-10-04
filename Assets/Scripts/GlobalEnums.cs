@@ -57,6 +57,14 @@ namespace FlappyDaBurd.Core
     }
     #endregion
 
+    public enum EDirectional
+    {
+        Right = 1,
+        Left = 2,
+        Up = 3,
+        Down = 4,
+    }
+
     public enum ESoundID
     {
         None = -1,

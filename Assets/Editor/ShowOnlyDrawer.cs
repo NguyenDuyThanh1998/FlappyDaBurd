@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// This class contain custom drawer for ReadOnly attribute.
 /// </summary>
-namespace PersonalLibrary.Editor
+namespace FlappyDaBurd.Core
 {
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
     public class ReadOnlyDrawer : PropertyDrawer

@@ -4,12 +4,14 @@ using UnityEngine;
 
 namespace FlappyDaBurd.Core
 {
-    public class Collectable : Spawnable
+    public abstract class Collectable : Spawnable
     {
-        [SerializeField]
-        ESoundID m_CollectSound = ESoundID.Collect;
-        const string k_FlappyTag = "Flappy";
+        [SerializeField] ESoundID m_CollectSound = ESoundID.Collect;
+        
         Renderer[] m_Renderers;
+
+        // Const
+        const string k_FlappyTag = "Flappy";
 
         protected override void Awake()
         {
@@ -18,7 +20,7 @@ namespace FlappyDaBurd.Core
             m_Renderers = gameObject.GetComponents<Renderer>();
         }
 
-        public override void ResetSpawnable()
+        protected override void ResetSpawnable()
         {
             for (int i = 0; i < m_Renderers.Length; i++)
             {
@@ -30,9 +32,14 @@ namespace FlappyDaBurd.Core
         {
             if (col.CompareTag(k_FlappyTag))
             {
-                AudioManager.Instance.PlayEffect(m_CollectSound);
-                Flappy.Instance.Collect(this);
+                OnHit();
             }
+        }
+
+        protected override void OnHit()
+        {
+            AudioManager.Instance.PlayEffect(m_CollectSound);
+            Flappy.Instance.Collect(this);
         }
     }
 }

@@ -6,6 +6,6 @@ namespace FlappyDaBurd.Core
 {
     public class DataManager : Singleton<DataManager>
     {
-
+        public int HealthPoints = 1;
     }
 }
