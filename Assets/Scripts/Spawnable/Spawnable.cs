@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lean.Pool;
 
 namespace FlappyDaBurd.Core
 {
-    public abstract class Spawnable : MonoBehaviour
+    public abstract class Spawnable : MonoBehaviour, IPoolable
     {
         // local
         protected Transform m_Transform;
@@ -34,7 +35,7 @@ namespace FlappyDaBurd.Core
         protected virtual void OnEnable()
         {
             SetDefaults();
-            SetSpawnPoint();
+            OnSpawn();
         }
 
         protected virtual void FixedUpdate()
@@ -51,12 +52,19 @@ namespace FlappyDaBurd.Core
             m_EulerAngles = m_Transform.eulerAngles;
         }
 
+        public virtual void OnSpawn()
+        {
+            SetSpawnPoint();
+        }
+
         #region Abstract
         protected abstract Vector3 SetSpawnPoint();
 
         protected abstract void Movement();
 
         protected abstract void OnHit();
+
+        public abstract void OnDespawn();
 
         protected abstract void ResetSpawnable();
         #endregion

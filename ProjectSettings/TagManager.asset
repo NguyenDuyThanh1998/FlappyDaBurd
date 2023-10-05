@@ -6,8 +6,9 @@ TagManager:
   tags:
   - Background
   - Ground
-  - Spawnables
   - Flappy
+  - Obstacle
+  - Collectable
   layers:
   - Default
   - TransparentFX

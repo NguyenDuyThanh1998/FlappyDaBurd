@@ -114,7 +114,7 @@ namespace FlappyDaBurd.Core
             }
             else
             {
-                m_Transform.rotation = Quaternion.Euler(0, 0, m_RigidBody.velocity.y * RotationalSpeed(m_FlapPower));
+                SetRotation(m_FlapPower);
             }
 
         }
@@ -127,16 +127,14 @@ namespace FlappyDaBurd.Core
             }
             else
             {
-                //m_RigidBody.rotation -= RotationalSpeed(m_FallPower);
-                m_Transform.rotation = Quaternion.Euler(0, 0, m_RigidBody.velocity.y * RotationalSpeed(m_FallPower));
+                SetRotation(m_FallPower);
             }
         }
 
-        float RotationalSpeed(Vector2 _vector, float _index = ROTATIONAL_INDEX)
+        float SetRotation(Vector2 _vector, float _index = ROTATIONAL_INDEX)
         {
-            Vector2 x = Vector2.up * _vector;
-            Vector2 y = Vector2.right * _vector;
-            return Vector2.Distance(x, y) * _index;
+            return m_RigidBody.rotation = m_RigidBody.velocity.y * _vector.magnitude * _index;
+            //return m_Transform.rotation = Quaternion.Euler(0, 0, m_RigidBody.velocity.y * _vector.magnitude * _index);
         }
 
         public void PlayDeadAnimation()

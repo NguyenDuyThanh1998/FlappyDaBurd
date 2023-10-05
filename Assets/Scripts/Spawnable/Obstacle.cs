@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lean.Pool;
 
 namespace FlappyDaBurd.Core
 {
@@ -12,6 +13,7 @@ namespace FlappyDaBurd.Core
 
         // Const
         const string k_FlappyTag = "Flappy";
+        const string k_Despawner = "Despawner";
 
         protected override void Awake()
         {
@@ -34,12 +36,21 @@ namespace FlappyDaBurd.Core
             {
                 OnHit();
             }
+            else if (col.name == k_Despawner)
+            {
+                OnDespawn();
+            }
         }
 
         protected override void OnHit()
         {
             AudioManager.Instance.PlayEffect(m_CollideSound);
             Flappy.Instance.TakeHit();
+        }
+
+        public override void OnDespawn()
+        {
+            LeanPool.Despawn(this.gameObject);
         }
     }
 }

@@ -1,16 +1,13 @@
 using FlappyDaBurd.Core;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Parallax : MonoBehaviour
+public abstract class Parallax : MonoBehaviour
 {
     #region Variable Declaration
     // local
-    [SerializeField] Transform m_Transform;
-    [SerializeField] Vector3 m_Position;
+    [SerializeField] [ReadOnly] protected Transform m_Transform;
+    [SerializeField] [ReadOnly] protected Vector3 m_Position;
     //[SerializeField] Vector3 m_EulerAngles; // For future expansions.
-    [SerializeField] float m_ParallaxIndex;
 
     [SerializeField] Renderer[] m_Renderers;
     [SerializeField] [ReadOnly] float m_Width;
@@ -22,13 +19,16 @@ public class Parallax : MonoBehaviour
     // public
     public Transform Transform => m_Transform;
     public Vector3 Position => m_Position;
-    public float ParallaxIndex => m_ParallaxIndex;
     #endregion
 
-    void Awake()
+    virtual protected void Awake()
     {
         Initialize();
     }
+
+    abstract protected void OnEnable();
+
+    abstract protected void FixedUpdate();
 
     [ContextMenu("Initialize")]
     void Initialize()
@@ -42,6 +42,7 @@ public class Parallax : MonoBehaviour
     void SetDefaultValues()
     {
         m_Transform = transform;
+        m_Position = m_Transform.position;
 
         m_Width = 0;
         //m_Height = 0;
@@ -82,23 +83,13 @@ public class Parallax : MonoBehaviour
         m_HalfCameraWidth = MainCam.orthographicSize * MainCam.aspect; // MainCam.orthographicSize is half the size of camera height * aspect ratio to get width.
     }
 
-    void OnEnable()
-    {
-        m_Position = m_Transform.position;
-    }
-
-    void FixedUpdate()
-    {
-        m_Transform.position = GetPosition();
-    }
-
-    Vector3 GetPosition()
+    protected Vector3 GetPosition(float _parallaxIndex)
     {
         //var lastSpriteSize = m_Renderers[^1].bounds.size;
         var travelLimit = (m_Width / 2f - m_HalfCameraWidth) + m_Position.x;
         if (travelLimit > 0)
         {
-            var distance = m_ParallaxIndex * Time.deltaTime;
+            var distance = _parallaxIndex * Time.deltaTime;
             m_Position.x -= distance;
         }
         else

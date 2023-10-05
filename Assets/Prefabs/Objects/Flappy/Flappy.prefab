@@ -161,4 +161,4 @@ MonoBehaviour:
   m_RigidBody: {fileID: 7962145571805485503}
   m_Transform: {fileID: 0}
   m_FlapPower: {x: 3.2, y: 5.5}
-  m_FallPower: {x: 3.5, y: -6}
+  m_FallPower: {x: 2.5, y: -6}
