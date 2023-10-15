@@ -1,81 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+public enum ESpawnableType
+{ 
+    None = -1,
+    Collectable = 0,
+    Obstacle = 1,
+}
 
-namespace FlappyDaBurd.Core
+#region Collectable
+public enum ECollectableType
+{ 
+    None = -1,
+    Currency = 0,
+    Powerup = 1,
+}
+
+public enum ECurrencyType
 {
-    public enum ESpawnableType
-    { 
-        None = -1,
-        Collectable = 0,
-        Obstacle = 1,
-    }
+    None = -1,
+    Coin = 0,
+    CoinBag = 1,
+    Diamond = 2,
+    CursedGem = 3,
+}
 
-    #region Collectable
-    public enum ECollectableType
-    { 
-        None = -1,
-        Currency = 0,
-        Powerup = 1,
-    }
+public enum EPowerupType
+{
+    None = -1,
+    DoubleCurrency = 0,
+    ShrinkSize = 1,
+    Remove = 2,
+    Diamond = 3,
+    CursedGem = 4,
+}
+#endregion
 
-    public enum ECurrencyType
-    {
-        None = -1,
-        Coin = 0,
-        CoinBag = 1,
-        Diamond = 2,
-        CursedGem = 3,
-    }
+#region Obstacle
+public enum EObstacleTpye
+{
+    None = -1,
+    Pipes = 0,
+    Bomb = 1,
+    Enemy = 2,
+}
 
-    public enum EPowerupType
-    {
-        None = -1,
-        DoubleCurrency = 0,
-        ShrinkSize = 1,
-        Remove = 2,
-        Diamond = 3,
-        CursedGem = 4,
-    }
-    #endregion
+public enum EEnemyType
+{
+    None = -1,
+    Flapper = 0,
+    Hawk = 1,
+    Eagle = 2,
+}
+#endregion
 
-    #region Obstacle
-    public enum EObstacleTpye
-    {
-        None = -1,
-        Pipes = 0,
-        Bomb = 1,
-        Enemy = 2,
-    }
-
-    public enum EEnemyType
-    {
-        None = -1,
-        Flapper = 0,
-        Hawk = 1,
-        Eagle = 2,
-    }
-    #endregion
-
-    public enum EDirectional
-    {
-        Right = 1,
-        Left = 2,
-        Up = 3,
-        Down = 4,
-    }
-
-    public enum ESoundID
-    {
-        None = -1,
-        Play = 0,
-        Pause = 1,
-        Restart = 2,
-        
-        LifeUp = 3,
-        LifeDown = 4,
-        Death = 5,
-
-        Collect = 6,
-    }
+public enum EDirectional
+{
+    Right = 1,
+    Left = 2,
+    Up = 3,
+    Down = 4,
 }

@@ -13,7 +13,7 @@ public class SO_ParallaxIndex : ScriptableObject
     {
         return speed = MIN_SPEED;
     }
-    public float Accelerate()
+    public float HyperJump()
     {
         return speed = MAX_SPEED;
     }

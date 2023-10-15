@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Lean.Pool;
 
-namespace FlappyDaBurd.Core
+namespace FlappyDaBurd
 {
     public class Spawner_Pipe : Spawner
     {

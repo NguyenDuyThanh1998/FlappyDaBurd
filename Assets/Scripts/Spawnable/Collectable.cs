@@ -1,30 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Lean.Pool;
+using Core.Audio;
 
-namespace FlappyDaBurd.Core
+namespace FlappyDaBurd
 {
     public abstract class Collectable : Spawnable
     {
         [SerializeField] ESoundID m_CollectSound = ESoundID.Collect;
-        
-        Renderer[] m_Renderers;
 
         // Const
         const string k_FlappyTag = "Flappy";
 
-        protected override void Awake()
+        public override void ResetSpawnable()
         {
-            base.Awake();
-
-            m_Renderers = gameObject.GetComponents<Renderer>();
-        }
-
-        protected override void ResetSpawnable()
-        {
-            for (int i = 0; i < m_Renderers.Length; i++)
+            if (isActiveAndEnabled)
             {
-                m_Renderers[i].enabled = true;
+                LeanPool.Despawn(gameObject);
             }
         }
 

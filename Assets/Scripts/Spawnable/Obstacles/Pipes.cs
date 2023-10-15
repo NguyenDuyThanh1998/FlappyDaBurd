@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace FlappyDaBurd.Core
+namespace FlappyDaBurd
 {
     public class Pipes : Obstacle
     {
-        [SerializeField] Vector2 m_SpawnOffset;
-        [SerializeField] float m_GroundOffset;
+        [SerializeField] Vector2 m_SpawnOffset = new Vector2(2, .7f);
+        [SerializeField] float m_GroundOffset = 1.5f;
         [SerializeField] SO_ParallaxIndex Ground;
 
         protected override void OnEnable()

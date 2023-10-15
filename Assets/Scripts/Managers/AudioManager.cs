@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FlappyDaBurd.Core
+namespace Core.Audio
 {
     /// <summary>
     /// Handles playing sounds and music based on their sound ID

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6193243768198994952}
   m_Layer: 0
   m_Name: Flappy
-  m_TagString: Untagged
+  m_TagString: Flappy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2075583970159153270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,15 +74,15 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -222055715
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c70b610fd5960e346af9e68aec9a31fb, type: 3}
+  m_Sprite: {fileID: 2128061024, guid: 909eb30287dd982498e44992df9387d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.34, y: 0.24}
+  m_Size: {x: 0.17, y: 0.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -143,7 +143,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.37, y: 0.27}
+  m_Size: {x: 0.75, y: 0.5}
   m_Direction: 1
 --- !u!114 &6193243768198994952
 MonoBehaviour:
@@ -159,6 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _persistent: 1
   m_RigidBody: {fileID: 7962145571805485503}
-  m_Transform: {fileID: 0}
+  m_Transform: {fileID: 9031671457651417804}
+  m_Animator: {fileID: 7250574384855246369}
   m_FlapPower: {x: 3.2, y: 5.5}
   m_FallPower: {x: 2.5, y: -6}

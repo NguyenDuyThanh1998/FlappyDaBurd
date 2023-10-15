@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FlappyDaBurd.Core
+namespace Core
 {
     public class DataManager : Singleton<DataManager>
     {

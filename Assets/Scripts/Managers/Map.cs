@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FlappyDaBurd.Core
+namespace Core
 {
     public class Map : Singleton<Map>
     {
-        //reset spawnables here
+        public void ResetSpawnables()
+        {
+
+        }
     }
 }

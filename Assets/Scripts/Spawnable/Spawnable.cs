@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Lean.Pool;
 
-namespace FlappyDaBurd.Core
+namespace FlappyDaBurd
 {
     public abstract class Spawnable : MonoBehaviour, IPoolable
     {
@@ -13,10 +11,6 @@ namespace FlappyDaBurd.Core
         protected Vector3 m_Scale;
         protected Vector3 m_EulerAngles;
 
-        //protected Vector2 m_CameraPosition;
-        //protected float m_HalfScreenWidth;
-        //protected float m_HalfScreenHeight;
-
         // public
         public Vector3 Scale => m_Scale;
         public Vector3 Position => m_Position;
@@ -24,18 +18,12 @@ namespace FlappyDaBurd.Core
 
         protected virtual void Awake()
         {
-            m_Transform = transform;
-
-            if (Map.Instance != null)
-            {
-                m_Transform.SetParent(Map.Instance.transform);
-            }
+            //
         }
         
         protected virtual void OnEnable()
         {
             SetDefaults();
-            OnSpawn();
         }
 
         protected virtual void FixedUpdate()
@@ -57,6 +45,9 @@ namespace FlappyDaBurd.Core
             SetSpawnPoint();
         }
 
+        public virtual void OnDespawn() { }
+
+
         #region Abstract
         protected abstract Vector3 SetSpawnPoint();
 
@@ -64,9 +55,7 @@ namespace FlappyDaBurd.Core
 
         protected abstract void OnHit();
 
-        public abstract void OnDespawn();
-
-        protected abstract void ResetSpawnable();
+        public abstract void ResetSpawnable();
         #endregion
 
         #region Methods

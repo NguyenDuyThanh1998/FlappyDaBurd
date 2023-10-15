@@ -1,32 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Lean.Pool;
+using Core.Audio;
 
-namespace FlappyDaBurd.Core
+namespace FlappyDaBurd
 {
     public abstract class Obstacle : Spawnable
     {
         [SerializeField] ESoundID m_CollideSound = ESoundID.LifeDown;
 
-        Renderer[] m_Renderers;
-
         // Const
         const string k_FlappyTag = "Flappy";
-        const string k_Despawner = "Despawner";
 
-        protected override void Awake()
+        public override void ResetSpawnable()
         {
-            base.Awake();
-
-            m_Renderers = gameObject.GetComponents<Renderer>();
-        }
-
-        protected override void ResetSpawnable()
-        {
-            for (int i = 0; i < m_Renderers.Length; i++)
+            if (isActiveAndEnabled)
             {
-                m_Renderers[i].enabled = true;
+                LeanPool.Despawn(gameObject);
             }
         }
 
@@ -36,21 +25,12 @@ namespace FlappyDaBurd.Core
             {
                 OnHit();
             }
-            else if (col.name == k_Despawner)
-            {
-                OnDespawn();
-            }
         }
 
         protected override void OnHit()
         {
             AudioManager.Instance.PlayEffect(m_CollideSound);
             Flappy.Instance.TakeHit();
-        }
-
-        public override void OnDespawn()
-        {
-            LeanPool.Despawn(this.gameObject);
         }
     }
 }

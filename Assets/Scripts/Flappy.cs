@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Core;
 
-namespace FlappyDaBurd.Core
+namespace FlappyDaBurd
 {
     public class Flappy : Singleton<Flappy>
     {
@@ -10,6 +11,7 @@ namespace FlappyDaBurd.Core
         // local
         [SerializeField] Rigidbody2D m_RigidBody;
         [SerializeField] Transform m_Transform;
+        [SerializeField] Animator m_Animator;
 
         [SerializeField] Vector2 m_FlapPower;
         [SerializeField] Vector2 m_FallPower;
@@ -18,7 +20,7 @@ namespace FlappyDaBurd.Core
         const float MAX_ANGLE = 42;
         const float MIN_ANGLE = -69;
         const float ROTATIONAL_INDEX = .69f;
-        readonly Vector3 DEFAULT_POSITION = Vector3.left * 1.3f;
+        readonly Vector3 DEFAULT_POSITION = new Vector3(-3.5f, 0, 0);
         readonly Vector3 DEFAULT_EULER_ANGLES = Vector3.zero;
         #endregion
 
@@ -35,7 +37,7 @@ namespace FlappyDaBurd.Core
             SetupFlappy();
         }
 
-        void SetDefaultValues()
+        public void SetDefaultValues()
         {
             m_Transform = transform;
             m_Transform.position = DEFAULT_POSITION;
@@ -44,8 +46,12 @@ namespace FlappyDaBurd.Core
 
         void SetupFlappy()
         {
-            m_RigidBody = GetComponent<Rigidbody2D>();
+            if (!m_Animator)
+                m_Animator = GetComponent<Animator>();
+            if (!m_RigidBody)
+                m_RigidBody = GetComponent<Rigidbody2D>();
             m_RigidBody.bodyType = RigidbodyType2D.Dynamic;
+
             SetPhysics(true);
             m_RigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
             
@@ -141,6 +147,34 @@ namespace FlappyDaBurd.Core
         {
 
         }
+
+        #region Animation
+        const string DEAD = "_idle";
+        const string ALIVE = "_slowFlap";
+        const string FLY = "_quickFlap";
+        string m_CachedAnim;
+        void PlayAnimationByName(string _animation, float _duration = 0f)
+        {
+            //Debug.Log("Anim: " + m_CachedAnim);
+            bool isSameAnim = m_CachedAnim == _animation;
+            bool isLooping = m_Animator.GetCurrentAnimatorStateInfo(0).loop;
+            if (isSameAnim && isLooping)
+            {
+                return;
+            }
+            else if (isSameAnim && !isLooping)
+            {
+                m_Animator.Rebind();
+                m_Animator.PlayInFixedTime(_animation);
+            }
+            else
+            {
+                //m_Animator.Rebind();
+                m_Animator.CrossFade(_animation, _duration);
+            }
+            m_CachedAnim = _animation;
+        }
+        #endregion
 
         //
         public void Collect(Collectable _collectable)

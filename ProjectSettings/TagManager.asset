@@ -43,15 +43,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2516238815
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Flappy
-    uniqueID: 4072911581
-    locked: 0
-  - name: Spawnables
-    uniqueID: 4244179421
-    locked: 0
-  - name: Ground
+  - name: Foreground
     uniqueID: 3232025915
     locked: 0
