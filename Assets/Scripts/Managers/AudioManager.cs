@@ -49,7 +49,7 @@ namespace Core.Audio
         }
 
         /// <summary>
-        /// Unmute/mute all sound effects
+        /// (Un)mute all sound effects
         /// </summary>
         public bool EnableSfx
         {

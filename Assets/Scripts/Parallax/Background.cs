@@ -1,4 +1,3 @@
-using FlappyDaBurd;
 using UnityEngine;
 
 public class Background : Parallax
@@ -14,4 +13,9 @@ public class Background : Parallax
     {
         Movement(background.speed);
     }
+
+    //protected override void Movement(float _parallaxIndex)
+    //{
+    //    m_MeshRenderer.material.mainTextureOffset += _parallaxIndex * Time.fixedDeltaTime * Vector2.right;
+    //}
 }

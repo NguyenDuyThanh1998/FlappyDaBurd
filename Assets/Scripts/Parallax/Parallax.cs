@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Parallax : MonoBehaviour
 {
     [SerializeField] [ReadOnly] protected MeshRenderer m_MeshRenderer;
+    protected const float RATIO = 6; // Material's texture offset to Transform.position ratio.
 
     private void Awake()
     {
@@ -22,8 +23,8 @@ public abstract class Parallax : MonoBehaviour
         }
     }
 
-    protected void Movement(float _parallaxIndex)
+    protected virtual void Movement(float _parallaxIndex)
     {
-        m_MeshRenderer.material.mainTextureOffset += _parallaxIndex * Time.deltaTime * Vector2.right;
+        m_MeshRenderer.material.mainTextureOffset += _parallaxIndex * Time.fixedDeltaTime * Vector2.right;
     }
 }

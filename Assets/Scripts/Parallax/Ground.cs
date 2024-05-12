@@ -13,4 +13,9 @@ public class Ground : Parallax
     {
         Movement(ground.speed);
     }
+
+    protected override void Movement(float _parallaxIndex)
+    {
+        m_MeshRenderer.material.mainTextureOffset += _parallaxIndex * Time.fixedDeltaTime / RATIO * Vector2.right;
+    }
 }

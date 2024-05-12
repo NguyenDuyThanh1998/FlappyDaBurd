@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1976f3cf13b9c245b4f5fe5ac78f8e6, type: 3}
   m_Name: Parallax_Background_01
   m_EditorClassIdentifier: 
-  speed: 0.2
+  speed: 0.075

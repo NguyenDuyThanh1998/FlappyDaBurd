@@ -4,6 +4,7 @@ namespace FlappyDaBurd
 {
     public class Pipes : Obstacle
     {
+        [SerializeField] float m_Gap = 4.4f;
         [SerializeField] Vector2 m_SpawnOffset = new Vector2(2, .7f);
         [SerializeField] float m_GroundOffset = 1.5f;
         [SerializeField] SO_ParallaxIndex Ground;
@@ -17,7 +18,7 @@ namespace FlappyDaBurd
 
         protected override void Movement()
         {
-            m_Transform.position += Ground.speed * Time.deltaTime * Vector3.left;
+            m_Transform.position += Ground.speed * Time.fixedDeltaTime * Vector3.left;
         }
 
         protected override Vector3 SetSpawnPoint()
