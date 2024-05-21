@@ -16,6 +16,9 @@ namespace FlappyDaBurd
         public Vector3 Position => m_Position;
         public Vector3 EulerAngles => m_EulerAngles;
 
+        // const
+        //protected const string k_FlappyTag = "Flappy";
+
         protected virtual void Awake()
         {
             //
@@ -52,8 +55,6 @@ namespace FlappyDaBurd
         protected abstract Vector3 SetSpawnPoint();
 
         protected abstract void Movement();
-
-        protected abstract void OnHit();
 
         public abstract void ResetSpawnable();
         #endregion

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PersonalLibrary.Common
+namespace PersonalLibrary.ExtensionMethods
 {
     public static class TransformExtensions
     {

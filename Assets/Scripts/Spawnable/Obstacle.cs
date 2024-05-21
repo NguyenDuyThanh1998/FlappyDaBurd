@@ -1,15 +1,12 @@
 using UnityEngine;
 using Lean.Pool;
-using Core.Audio;
+using PersonalLibrary.Utilities;
 
 namespace FlappyDaBurd
 {
     public abstract class Obstacle : Spawnable
     {
-        [SerializeField] ESoundID m_CollideSound = ESoundID.LifeDown;
-
-        // Const
-        const string k_FlappyTag = "Flappy";
+        protected int damage;
 
         public override void ResetSpawnable()
         {
@@ -21,16 +18,10 @@ namespace FlappyDaBurd
 
         void OnTriggerEnter(Collider col)
         {
-            if (col.CompareTag(k_FlappyTag))
+            if (col.CompareTag(Constants.Key.FlappyTag))
             {
-                OnHit();
+                EventManager.Raise(new EventObstacleHit() { damage = damage });
             }
-        }
-
-        protected override void OnHit()
-        {
-            AudioManager.Instance.PlayEffect(m_CollideSound);
-            Flappy.Instance.TakeHit();
         }
     }
 }

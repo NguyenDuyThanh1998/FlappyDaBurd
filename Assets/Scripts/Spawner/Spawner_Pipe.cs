@@ -21,10 +21,10 @@ namespace FlappyDaBurd
             }
         }
 
-        public override void Spawn(GameObject _obj)
+        public override void Spawn(Spawnable _obj)
         {
-            var pipe = LeanPool.Spawn(_obj);
-            pipe.transform.SetParent(parent);
+            LeanPool.Spawn(_obj, parent);
+            //pipe.transform.SetParent(parent);
         }
     }
 }

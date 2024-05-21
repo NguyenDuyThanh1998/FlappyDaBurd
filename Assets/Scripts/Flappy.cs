@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Core;
+using PersonalLibrary.Utilities;
 
 namespace FlappyDaBurd
 {
@@ -16,6 +17,11 @@ namespace FlappyDaBurd
         [SerializeField] Vector2 m_FlapPower;
         [SerializeField] Vector2 m_FallPower;
 
+        // Sounds
+        [SerializeField] ESoundID s_Collect = ESoundID.Collect;
+        [SerializeField] ESoundID s_TakeHit = ESoundID.LifeDown;
+        [SerializeField] ESoundID s_Death   = ESoundID.Death;
+
         // Const
         const float MAX_ANGLE = 42;
         const float MIN_ANGLE = -69;
@@ -24,9 +30,34 @@ namespace FlappyDaBurd
         readonly Vector3 DEFAULT_EULER_ANGLES = Vector3.zero;
         #endregion
 
+        private void OnEnable()
+        {
+            EventManager.AddListener<EventCollectablePickup>(OnCollectablePickup);
+            EventManager.AddListener<EventObstacleHit>(OnObstacleHit);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.RemoveListener<EventCollectablePickup>(OnCollectablePickup);
+            EventManager.RemoveListener<EventObstacleHit>(OnObstacleHit);
+        }
+
         private void Awake()
         {
             Initialize();
+        }
+
+        void Update()
+        {
+            if (InputListener())
+            {
+                Flap();
+            }
+        }
+
+        void FixedUpdate()
+        {
+            Fall();
         }
 
         [ContextMenu("Initialize")]
@@ -86,28 +117,6 @@ namespace FlappyDaBurd
             }
             else 
                 return false;
-        }
-
-        void OnEnable()
-        {
-            //
-        }
-
-        void Update()
-        {
-            if (InputListener())
-            {
-                Flap();
-            }
-            //else
-            //{
-            //    Fall();
-            //}
-        }
-
-        void FixedUpdate()
-        {
-            Fall();
         }
 
         void Flap()
@@ -177,20 +186,23 @@ namespace FlappyDaBurd
         #endregion
 
         //
-        public void Collect(Collectable _collectable)
+        public void OnCollectablePickup(EventCollectablePickup collectable)
         {
-
+            //DataManager.Instance.Inventory.Add(collectable);
+            AudioManager.Instance.PlayEffect(s_Collect);
         }
 
-        public void TakeHit(int _damage = 1)
+        public void OnObstacleHit(EventObstacleHit obstacle)
         {
-            if (DataManager.Instance.HealthPoints < 1)
+            var currentHP = DataManager.Instance.HealthPoints;
+            currentHP -= obstacle.damage;
+            AudioManager.Instance.PlayEffect(s_TakeHit);
+
+            if (currentHP < 1)
             {
                 GameManager.Instance.GameOver();
-            }
-            else
-            {
-                DataManager.Instance.HealthPoints -= _damage;
+                //UIManager.DisplayStats.Health = 0;
+                AudioManager.Instance.PlayEffect(s_Death);
             }
         }
     }

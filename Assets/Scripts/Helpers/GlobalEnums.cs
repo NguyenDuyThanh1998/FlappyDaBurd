@@ -1,3 +1,7 @@
+/// <summary>
+/// 
+/// </summary>
+
 public enum ESpawnableType
 { 
     None = -1,

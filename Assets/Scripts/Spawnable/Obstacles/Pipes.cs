@@ -8,12 +8,24 @@ namespace FlappyDaBurd
         [SerializeField] Vector2 m_SpawnOffset = new Vector2(2, .7f);
         [SerializeField] float m_GroundOffset = 1.5f;
         [SerializeField] SO_ParallaxIndex Ground;
+        //[SerializeField] SO_Obstacle_Pipe Pipe;
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
+            LoadResources();
+            //Getstats();
+        }
+        void LoadResources()
+        {
             Ground = Resources.Load<SO_ParallaxIndex>("ScriptableObjects/Parallax/Parallax_Ground_00");
+            //Pipe = Resources.Load<SO_Obstacle_Pipe>("ScriptableObjects/Obstacles/Pipes_00");
+        }
+
+        void GetStats()
+        {
+            //damage = Pipe.damage;
         }
 
         protected override void Movement()

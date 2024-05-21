@@ -6,9 +6,9 @@ namespace FlappyDaBurd
 {
     public abstract class Spawner : MonoBehaviour
     {
-        [SerializeField] protected GameObject spawnableObj;
+        [SerializeField] protected Spawnable spawnableObj;
         [SerializeField] protected Transform parent;
 
-        public abstract void Spawn(GameObject _obj);
+        public abstract void Spawn(Spawnable _spawnable);
     }
 }

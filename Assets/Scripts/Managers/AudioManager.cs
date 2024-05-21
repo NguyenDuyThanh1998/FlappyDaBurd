@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Core;
 
-namespace Core.Audio
+namespace PersonalLibrary.Utilities
 {
     /// <summary>
     /// Handles playing sounds and music based on their sound ID

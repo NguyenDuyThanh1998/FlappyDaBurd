@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FlappyDaBurd;
+using PersonalLibrary.Utilities;
 
 namespace Core
 {
@@ -65,12 +66,12 @@ namespace Core
 
         }
 
-        public Audio.AudioSettings LoadAudioSettings()
+        public AudioSettings LoadAudioSettings()
         {
             return null;
         }
 
-        public Audio.AudioSettings SaveAudioSettings(Audio.AudioSettings _audio)
+        public AudioSettings SaveAudioSettings(AudioSettings _audio)
         {
             return null;
         }
