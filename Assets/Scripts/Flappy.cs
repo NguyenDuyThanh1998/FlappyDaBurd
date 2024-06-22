@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Core;
+using FlappyDaBurd.Datagram;
 using PersonalLibrary.Utilities;
 
 namespace FlappyDaBurd
@@ -20,7 +21,7 @@ namespace FlappyDaBurd
         // Sounds
         [SerializeField] ESoundID s_Collect = ESoundID.Collect;
         [SerializeField] ESoundID s_TakeHit = ESoundID.LifeDown;
-        [SerializeField] ESoundID s_Death   = ESoundID.Death;
+        [SerializeField] ESoundID s_Death = ESoundID.Death;
 
         // Const
         const float MAX_ANGLE = 42;
@@ -109,14 +110,9 @@ namespace FlappyDaBurd
             return MouseClicked || SpaceBarClicked || ScreenTapped;
         }
 
-        bool GetTouchInput()
+        bool GetTouchInput(TouchPhase phase = TouchPhase.Began)
         {
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                return true;
-            }
-            else 
-                return false;
+            return (Input.touchCount > 0 && Input.GetTouch(0).phase == phase);
         }
 
         void Flap()
@@ -188,21 +184,30 @@ namespace FlappyDaBurd
         //
         public void OnCollectablePickup(EventCollectablePickup collectable)
         {
+#if UNITY_EDITOR
+            Debug.Log("Picked up: " + collectable.obj.GetType().Name);
+#endif
             //DataManager.Instance.Inventory.Add(collectable);
             AudioManager.Instance.PlayEffect(s_Collect);
         }
 
         public void OnObstacleHit(EventObstacleHit obstacle)
         {
-            var currentHP = DataManager.Instance.HealthPoints;
-            currentHP -= obstacle.damage;
+#if UNITY_EDITOR
+            Debug.Log("Obstacle hit: " + obstacle.obj.GetType().Name);
+#endif
+            //var currentHP = DataManager.Instance.HealthPoints;
+            var currentHP = DataManager.Instance.DecreaseHP(obstacle.damage);
             AudioManager.Instance.PlayEffect(s_TakeHit);
+            //UIManager.DisplayStats.Health = 0;
 
             if (currentHP < 1)
             {
-                GameManager.Instance.GameOver();
-                //UIManager.DisplayStats.Health = 0;
+#if UNITY_EDITOR
+                Debug.Log("flappy dead");
+#endif
                 AudioManager.Instance.PlayEffect(s_Death);
+                GameManager.Instance.GameOver();
             }
         }
     }

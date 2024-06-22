@@ -1,12 +1,37 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Lean.Pool;
+
+using PersonalLibrary.Utilities;
+
+using FlappyDaBurd.Datagram;
 
 namespace FlappyDaBurd
 {
     public class Spawner_Pipe : Spawner
     {
+        [SerializeField] private Pipes pipe;
+        [SerializeField] private SO_Pipe asset;
+        [SerializeField] private SO_Pipe assetInstance;
+
+        protected override void LoadSpawnable()
+        {
+            if (!pipe)
+                pipe = GetComponentFromPrefab(Constant.Str.PrefabFolder + Constant.Str.PipePrefab) as Pipes;
+        }
+
+        protected override void LoadAsset()
+        {
+            if (!asset)
+                asset = Resources.Load<SO_Pipe>(Constant.Str.SO_Pipes + "Pipes_00");
+        }
+
+        public override void Initialize()
+        {
+            // pass SO asset into spawnables before they get pooled
+            //assetInstance = ScriptableObject.CreateInstance<asset>();
+            pipe.Asset = asset;
+        }
+
         private void Start()
         {
             StartCoroutine(Spawning());
@@ -14,17 +39,19 @@ namespace FlappyDaBurd
 
         public IEnumerator Spawning()
         {
-            while (true)
+            while (isSpawn)
             {
                 yield return new WaitForSeconds(3);
-                Spawn(spawnableObj);
+                pipe.DoSpawn(parent);
+                EventManager.Raise(new EventPipeSpawn() { obj = pipe, asset = asset });
             }
         }
 
-        public override void Spawn(Spawnable _obj)
-        {
-            LeanPool.Spawn(_obj, parent);
-            //pipe.transform.SetParent(parent);
-        }
+        //void Spawn(Pipes _pipe, SO_Pipe _resource)
+        //{
+        //    _pipe.Resource = _resource;
+        //    _pipe.DoSpawn(parent);
+        //    EventManager.Raise(new EventPipeSpawn() { obj = _pipe, resource = _resource });
+        //}
     }
 }

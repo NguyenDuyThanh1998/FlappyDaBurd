@@ -1,17 +1,19 @@
 using UnityEngine;
 
+using FlappyDaBurd.Datagram;
+
 public class Ground : Parallax
 {
     [SerializeField] protected SO_ParallaxIndex ground;
 
     protected override void OnEnable()
     {
-        ground = Resources.Load<SO_ParallaxIndex>("ScriptableObjects/Parallax/Parallax_Ground_00");
+        ground = Resources.Load<SO_ParallaxIndex>(Constant.Str.SO_Ground + "Parallax_Ground_00");
     }
 
     protected override void FixedUpdate()
     {
-        Movement(ground.speed);
+        Movement(ground.Speed);
     }
 
     protected override void Movement(float _parallaxIndex)

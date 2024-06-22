@@ -1,5 +1,5 @@
 using UnityEngine;
-using PersonalLibrary.ExtensionMethods;
+using PersonalLibrary.Extensions;
 
 namespace PersonalLibrary.Utilities
 {
@@ -12,12 +12,12 @@ namespace PersonalLibrary.Utilities
             public string name;
             public Vector2 dir;
 
-            // Default values for new references.
-            public Edge()
+            // Constructor
+            public Edge(GameObject _obj, string _name, Vector2 _dir)
             {
-                obj = new();
-                name = "name";
-                dir = Vector2.one;
+                obj = _obj;
+                name = _name;
+                dir = _dir;
             }
         }
 
@@ -50,30 +50,22 @@ namespace PersonalLibrary.Utilities
 
             if (Top)
             {
-                Edge top = new();
-                top.name = "Top";
-                top.dir = Vector2.up;
+                Edge top = new Edge(new(), "Top", Vector2.up);
                 SetCollider(SetEdge(top));
             }
             if (Bottom)
             {
-                Edge bot = new();
-                bot.name = "Bottom";
-                bot.dir = Vector2.down;
+                Edge bot = new Edge(new(), "Bottom", Vector2.down);
                 SetCollider(SetEdge(bot));
             }
             if (Right)
             {
-                Edge right = new();
-                right.name = "Right";
-                right.dir = Vector2.right;
+                Edge right = new Edge(new(), "Right", Vector2.right);
                 SetCollider(SetEdge(right));
             }
             if (Left)
             {
-                Edge left = new();
-                left.name = "Left";
-                left.dir = Vector2.left;
+                Edge left = new Edge(new(), "Left", Vector2.left);
                 SetCollider(SetEdge(left));
             }
         }
@@ -118,8 +110,8 @@ namespace PersonalLibrary.Utilities
         Edge SetEdge(Edge _edge)
         {
             var _object = _edge.obj;
-            _object.transform.parent = transform;   // Set parent for GO.
-            _object.name = _edge.name;              // Name the GO.
+            _object.SetParent(transform);           // Set parent for GO.
+            _object.SetName(_edge.name);            // Name the GO.
             _object.AddComponent<BoxCollider2D>();  // Add BoxCollider component.
             return _edge;
         }
@@ -128,20 +120,20 @@ namespace PersonalLibrary.Utilities
         {
             if (_edge.obj.TryGetComponent(out BoxCollider2D _col))
             {
-                float _posOffset = m_PositionOffset.y;
+                Vector2 _posOffset = m_PositionOffset;
                 Vector2 _halfScreenSize = GetScreen();
                 Vector2 _colSize = ColliderSize(_halfScreenSize);
 
                 if (_edge.dir == Vector2.right || _edge.dir == Vector2.left)
                 {
-                    _posOffset = m_PositionOffset.x;
+                    _posOffset = m_PositionOffset.Swap();
                     _halfScreenSize = GetScreen().Swap();
                     _colSize = ColliderSize(_halfScreenSize).Swap();
                 }
 
                 _col.size = _colSize;
                 _col.transform.position = m_CameraPosition + _edge.dir * _halfScreenSize.y;
-                _col.offset = _edge.dir * (m_Thickness / 2 + _posOffset);
+                _col.offset = _edge.dir * (m_Thickness / 2 + _posOffset.y);
                 return _col;
             }
             else

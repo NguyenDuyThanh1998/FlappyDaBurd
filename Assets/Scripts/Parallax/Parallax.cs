@@ -1,4 +1,5 @@
 using UnityEngine;
+using PersonalLibrary.pUnity.pAttribute;
 
 public abstract class Parallax : MonoBehaviour
 {
