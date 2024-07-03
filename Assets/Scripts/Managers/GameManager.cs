@@ -31,7 +31,7 @@ namespace Core
         {
             if (Flappy.Instance != null)
             {
-                Flappy.Instance.SetDefaultValues();
+                Flappy.Instance.SetDefaults();
             }
             if (Map.Instance != null)
             {

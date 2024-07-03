@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/ParallaxIndex", fileName = "Parallax_")]
+[CreateAssetMenu(menuName = "Scriptable Objects/ParallaxIndex", fileName = "Parallax_", order = 20)]
 public class SO_ParallaxIndex : ScriptableObject
 {
     [SerializeField] float speed;

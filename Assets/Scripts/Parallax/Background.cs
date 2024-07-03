@@ -1,6 +1,6 @@
 using UnityEngine;
 
-using FlappyDaBurd.Datagram;
+using static FlappyDaBurd.Datagram.Constant;
 
 public class Background : Parallax
 {
@@ -8,7 +8,7 @@ public class Background : Parallax
 
     protected override void OnEnable()
     {
-        background = Resources.Load<SO_ParallaxIndex>(Constant.Str.SO_Background + "Parallax_Background_00");
+        background = Resources.Load<SO_ParallaxIndex>(PATH.SO_BACKGROUND + "Parallax_Background_00");
     }
 
     protected override void FixedUpdate()

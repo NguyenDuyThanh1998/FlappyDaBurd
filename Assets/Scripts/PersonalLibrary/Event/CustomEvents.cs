@@ -5,17 +5,25 @@ namespace PersonalLibrary.Utilities
     /// </summary>
     public class EventCollectablePickup : CustomEvent
     {
-        public FlappyDaBurd.Collectable obj;
-        public int points;
+        public readonly FlappyDaBurd.Spawnable collectable;
+
+        public EventCollectablePickup(FlappyDaBurd.Spawnable _collectable)
+        {
+            collectable = _collectable;
+        }
     }
 
     /// <summary>
     /// When flappy hits an obstacle.
     /// </summary>
-    public class EventObstacleHit : CustomEvent
+    public class EventObstacleHit<T> : CustomEvent
     {
-        public FlappyDaBurd.Obstacle obj;
-        public int damage;
+        public readonly T obstacle;
+
+        public EventObstacleHit(T _obstacle)
+        {
+            obstacle = _obstacle;
+        }
     }
 
     /// <summary>
@@ -31,7 +39,11 @@ namespace PersonalLibrary.Utilities
     /// </summary>
     public class EventPipeSpawn : CustomEvent
     {
-        public FlappyDaBurd.Pipes obj;
         public SO_Pipe asset;
+
+        public EventPipeSpawn(SO_Pipe cachedAsset)
+        {
+            asset = cachedAsset;
+        }
     }
 }

@@ -8,7 +8,7 @@ public class Ground : Parallax
 
     protected override void OnEnable()
     {
-        ground = Resources.Load<SO_ParallaxIndex>(Constant.Str.SO_Ground + "Parallax_Ground_00");
+        ground = Resources.Load<SO_ParallaxIndex>(Constant.PATH.SO_GROUND + "Parallax_Ground_00");
     }
 
     protected override void FixedUpdate()

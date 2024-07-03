@@ -1,35 +1,27 @@
 using System.Collections;
 using UnityEngine;
 
+using Lean.Pool;
 using PersonalLibrary.Utilities;
+using PersonalLibrary.pUnity.pAttribute;
 
-using FlappyDaBurd.Datagram;
+using static FlappyDaBurd.Datagram.Constant;
 
 namespace FlappyDaBurd
 {
     public class Spawner_Pipe : Spawner
     {
-        [SerializeField] private Pipes pipe;
-        [SerializeField] private SO_Pipe asset;
-        [SerializeField] private SO_Pipe assetInstance;
+        [SerializeField] private Pipes spawnable;
 
-        protected override void LoadSpawnable()
-        {
-            if (!pipe)
-                pipe = GetComponentFromPrefab(Constant.Str.PrefabFolder + Constant.Str.PipePrefab) as Pipes;
-        }
+        [Header("Asset")]
+        [SerializeField, ReadOnly] private SO_Pipe assetReference;
 
-        protected override void LoadAsset()
+        protected override void GetResources()
         {
-            if (!asset)
-                asset = Resources.Load<SO_Pipe>(Constant.Str.SO_Pipes + "Pipes_00");
-        }
-
-        public override void Initialize()
-        {
-            // pass SO asset into spawnables before they get pooled
-            //assetInstance = ScriptableObject.CreateInstance<asset>();
-            pipe.Asset = asset;
+            if (!spawnable)
+                spawnable = GetSpawnableFromPrefab<Pipes>(PATH.PREFAB_PIPE);
+            if (!assetReference)
+                assetReference = GetAssetReference<SO_Pipe>(PATH.SO_PIPES + "Pipes_00");
         }
 
         private void Start()
@@ -42,16 +34,13 @@ namespace FlappyDaBurd
             while (isSpawn)
             {
                 yield return new WaitForSeconds(3);
-                pipe.DoSpawn(parent);
-                EventManager.Raise(new EventPipeSpawn() { obj = pipe, asset = asset });
+
+                var assetInstance = assetReference.Copy<SO_Pipe>();
+                spawnable.Initialize(assetInstance);
+                LeanPool.Spawn(spawnable, parent);
+
+                EventManager.Raise(new EventPipeSpawn(assetInstance));
             }
         }
-
-        //void Spawn(Pipes _pipe, SO_Pipe _resource)
-        //{
-        //    _pipe.Resource = _resource;
-        //    _pipe.DoSpawn(parent);
-        //    EventManager.Raise(new EventPipeSpawn() { obj = _pipe, resource = _resource });
-        //}
     }
 }

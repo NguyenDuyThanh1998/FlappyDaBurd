@@ -6,58 +6,43 @@ namespace FlappyDaBurd
 {
     public abstract class Spawnable : MonoBehaviour, IPoolable
     {
+        #region Variable declaration
         // local
-        protected Transform m_Transform;
-        protected Vector3 m_Position;
-        protected Vector3 m_EulerAngles;
-        protected Vector3 m_Scale;
+        [SerializeField] private bool isStationary = false; // FOR TESTING ONLY
+        [SerializeField] private SO_SpawnableType spawnableType;
+        private bool _isDoomed;
 
         // public
-        public Vector3 Position => m_Position;
-        public Vector3 EulerAngles => m_EulerAngles;
-        public Vector3 Scale => m_Scale;
-
-        [ContextMenu("Set up")]
-        private void Awake()
-        {
-            SetDefaults();
-        }
+        public SO_SpawnableType Type => spawnableType;
+        public bool isDoomed => _isDoomed;
+        #endregion
 
         private void FixedUpdate()
         {
-            Movement();
+            if (!isStationary)
+                Movement();
             //PerFixedUpdate();
         }
 
-        #region Spawn states
-        public abstract void DoSpawn(Transform parent);
-        public abstract void DoDespawn();
-
-        public abstract void OnSpawn();
-        public abstract void OnDespawn();
-        #endregion
-
-        #region Spawnable aspects
-        protected virtual void GetStats() { }
-
-        protected abstract Vector3 SpawnPosition();
-
-        protected abstract Vector3 SpawnRotation();
-
-        protected abstract void Movement();
+        #region IPoolable
+        public virtual void OnSpawn()
+        {
+            _isDoomed = false;
+        }
+        public virtual void OnDespawn()
+        {
+            
+        }
         #endregion
 
         #region Methods
-        protected virtual void Initialize() { }
-        protected virtual void SetDefaults()
+        protected virtual void Movement() { }
+        //protected virtual void PerFixedUpdate() { }
+
+        public void IsDoomed()
         {
-            m_Transform = transform;
-            m_Scale = m_Transform.localScale;
-            m_Position = m_Transform.position;
-            m_EulerAngles = m_Transform.eulerAngles;
+            _isDoomed = true;
         }
-        
-        protected virtual void PerFixedUpdate() { }
         #endregion
     }
 }

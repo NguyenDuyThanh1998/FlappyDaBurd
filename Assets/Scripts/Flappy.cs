@@ -1,9 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 using Core;
 using FlappyDaBurd.Datagram;
+using static FlappyDaBurd.Datagram.Constant;
+
 using PersonalLibrary.Utilities;
+using PersonalLibrary.pUnity.pAttribute;
 
 namespace FlappyDaBurd
 {
@@ -11,10 +13,12 @@ namespace FlappyDaBurd
     {
         #region Variable Declaration
         // local
-        [SerializeField] Rigidbody2D m_RigidBody;
-        [SerializeField] Transform m_Transform;
-        [SerializeField] Animator m_Animator;
+        [SerializeField, ReadOnly] Rigidbody2D m_RigidBody;
+        [SerializeField, ReadOnly] Transform m_Transform;
+        [SerializeField, ReadOnly] Animator m_Animator;
 
+        [Space(10)]
+        [SerializeField] SO_HitPoints m_HP;
         [SerializeField] Vector2 m_FlapPower;
         [SerializeField] Vector2 m_FallPower;
 
@@ -22,25 +26,18 @@ namespace FlappyDaBurd
         [SerializeField] ESoundID s_Collect = ESoundID.Collect;
         [SerializeField] ESoundID s_TakeHit = ESoundID.LifeDown;
         [SerializeField] ESoundID s_Death = ESoundID.Death;
-
-        // Const
-        const float MAX_ANGLE = 42;
-        const float MIN_ANGLE = -69;
-        const float ROTATIONAL_INDEX = .69f;
-        readonly Vector3 DEFAULT_POSITION = new Vector3(-3.5f, 0, 0);
-        readonly Vector3 DEFAULT_EULER_ANGLES = Vector3.zero;
         #endregion
 
         private void OnEnable()
         {
             EventManager.AddListener<EventCollectablePickup>(OnCollectablePickup);
-            EventManager.AddListener<EventObstacleHit>(OnObstacleHit);
+            EventManager.AddListener<EventObstacleHit<Pipes>>(OnObstacleHit);
         }
 
         private void OnDisable()
         {
             EventManager.RemoveListener<EventCollectablePickup>(OnCollectablePickup);
-            EventManager.RemoveListener<EventObstacleHit>(OnObstacleHit);
+            EventManager.RemoveListener<EventObstacleHit<Pipes>>(OnObstacleHit);
         }
 
         private void Awake()
@@ -65,28 +62,32 @@ namespace FlappyDaBurd
         void Initialize()
         {
             //InputListener();
-            SetDefaultValues();
-            SetupFlappy();
+            GetResources();
+            SetDefaults();
+            //GetStats();
         }
 
-        public void SetDefaultValues()
+        void GetResources()
         {
-            m_Transform = transform;
-            m_Transform.position = DEFAULT_POSITION;
-            m_Transform.eulerAngles = DEFAULT_EULER_ANGLES;
-        }
-
-        void SetupFlappy()
-        {
-            if (!m_Animator)
-                m_Animator = GetComponent<Animator>();
             if (!m_RigidBody)
                 m_RigidBody = GetComponent<Rigidbody2D>();
-            m_RigidBody.bodyType = RigidbodyType2D.Dynamic;
+            if (!m_Animator)
+                m_Animator = GetComponent<Animator>();
 
+            if (!m_HP)
+                m_HP = Resources.Load<SO_HitPoints>(PATH.FOLDER_RESOURCES + PATH.SO_HIT_POINTS + "SO_FlappyHP_Default");
+        }
+
+        public void SetDefaults()
+        {
+            m_Transform = transform;
+            m_Transform.position = VECTOR3.DEFAULT_POSITION;
+            m_Transform.eulerAngles = VECTOR3.DEFAULT_EULER_ANGLES;
+
+            m_RigidBody.bodyType = RigidbodyType2D.Dynamic;
             SetPhysics(true);
             m_RigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-            
+
             m_RigidBody.mass = 1f;
             m_RigidBody.gravityScale = 2.2f;
 
@@ -119,22 +120,21 @@ namespace FlappyDaBurd
         {
             m_RigidBody.velocity = Vector2.up * m_FlapPower;
 
-            if (m_RigidBody.rotation > MAX_ANGLE)
+            if (m_RigidBody.rotation > SINGLE.MAX_ANGLE)
             {
-                m_RigidBody.rotation = MAX_ANGLE;
+                m_RigidBody.rotation = SINGLE.MAX_ANGLE;
             }
             else
             {
                 SetRotation(m_FlapPower);
             }
-
         }
 
         void Fall()
         {
-            if (m_RigidBody.rotation < MIN_ANGLE)
+            if (m_RigidBody.rotation < SINGLE.MIN_ANGLE)
             {
-                m_RigidBody.rotation = MIN_ANGLE;
+                m_RigidBody.rotation = SINGLE.MIN_ANGLE;
             }
             else
             {
@@ -142,7 +142,7 @@ namespace FlappyDaBurd
             }
         }
 
-        float SetRotation(Vector2 _vector, float _index = ROTATIONAL_INDEX)
+        float SetRotation(Vector2 _vector, float _index = SINGLE.ROTATIONAL_INDEX)
         {
             return m_RigidBody.rotation = m_RigidBody.velocity.y * _vector.magnitude * _index;
             //return m_Transform.rotation = Quaternion.Euler(0, 0, m_RigidBody.velocity.y * _vector.magnitude * _index);
@@ -182,22 +182,22 @@ namespace FlappyDaBurd
         #endregion
 
         //
-        public void OnCollectablePickup(EventCollectablePickup collectable)
+        public void OnCollectablePickup(EventCollectablePickup e)
         {
 #if UNITY_EDITOR
-            Debug.Log("Picked up: " + collectable.obj.GetType().Name);
+            Debug.Log("Picked up: " + e.collectable.GetType().Name);
 #endif
             //DataManager.Instance.Inventory.Add(collectable);
             AudioManager.Instance.PlayEffect(s_Collect);
         }
 
-        public void OnObstacleHit(EventObstacleHit obstacle)
+        public void OnObstacleHit(EventObstacleHit<Pipes> e)
         {
 #if UNITY_EDITOR
-            Debug.Log("Obstacle hit: " + obstacle.obj.GetType().Name);
+            Debug.Log("Obstacle hit: " + e.obstacle.GetType().Name);
 #endif
             //var currentHP = DataManager.Instance.HealthPoints;
-            var currentHP = DataManager.Instance.DecreaseHP(obstacle.damage);
+            var currentHP = m_HP.TakeHit(e.obstacle.Damage);
             AudioManager.Instance.PlayEffect(s_TakeHit);
             //UIManager.DisplayStats.Health = 0;
 
