@@ -1,2 +1,2 @@
 # FlappyDaBurd
- Just a lil' challenge from mentor
+Extendable FlappyBird clone
